@@ -1,0 +1,22 @@
+{% load static %} {% load urls %}
+
+<div class="row pt-4 home-advert-row">
+    <div class="col-lg-6 col-sm-5 col-md-5 mb-2 trend-col">
+        {% include 'advertisements/global_trends.html' %}
+
+    </div>
+    <div class="col-lg-6 col-sm-5 col-md-5 mb-2 trend-col">
+        {% include 'advertisements/local_trends.html' %}
+
+    </div>
+
+</div>
+<div class=" filter-col">
+    <a href="{% toggle_params request.get_full_path minimize='true' %}" class="onhover">
+        <img src="{% static 'images/grid_button.PNG' %}" class="img-fluid h-40 grid_img" alt=""></a>
+
+    <div class="local">
+        <a href="{% add_params request.get_full_path is_global='false' %}" class="c-61 onhover"> <img
+                src="{% static 'images/L.PNG' %}" class="img-fluid local_img" alt=""></a>
+    </div>
+</div>

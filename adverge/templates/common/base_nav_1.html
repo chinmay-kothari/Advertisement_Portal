@@ -1,0 +1,84 @@
+{% extends "common/base.html" %} {% block content %} {% load static %}
+
+<div class="p-rel">
+    <form method="GET">
+        {% include 'common/nav_1.html'%}
+
+        <section id="header">
+            <div class="container-fluid container-home">
+                {% include 'common/nav_1_extra.html'%}
+
+                {% block content_extra %}
+                Here comes content_extra
+                {% endblock content_extra %}
+                <!-- <button type="submit" class="btn btn-success">Go !</button>  -->
+            </div>
+        </section>
+        {{ filters.form.media }}
+    </form>
+
+    <section id="outPage" onclick="closeNav()"></section>
+
+    <!-- sideBar Menu End -->
+
+    <script>
+        $(function () {
+            $("form").each(function () {
+                $(this)
+                    .find("input")
+                    .keypress(function (e) {
+                        // Enter pressed?
+                        if (e.which == 10 || e.which == 13) {
+                            this.form.submit();
+                        }
+                    });
+
+                $(this)
+                    .find("input[type=submit]")
+                    .hide();
+            });
+        });
+
+        count = 0;
+
+        function dropdownShow() {
+            count++;
+            if (count % 2) {
+                $(".px-2").css({
+                    display: "block"
+                });
+            } else {
+                $(".px-2").css({
+                    display: "none"
+                });
+            }
+        }
+
+        function tagsChins(tag) {
+            console.log("jyky");
+            const chings = document.getElementById("tagsChins");
+            chings.innerHTML +=
+                '<span class="mx-1">' +
+                tag +
+                ' <i class="fas fa-plus-circle"></i> </span>';
+        }
+    </script>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "380px";
+            document.getElementById("mySidenav").style.opacity = "1";
+            document.getElementById("outPage").style.width = "100%";
+            document.getElementById("outPage").style.opacity = "1";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("mySidenav").style.opacity = "0";
+            document.getElementById("outPage").style.width = "0";
+            document.getElementById("outPage").style.opacity = "0";
+        }
+    </script>
+</div>
+
+{% endblock %}

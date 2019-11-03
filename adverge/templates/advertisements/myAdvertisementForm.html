@@ -1,0 +1,68 @@
+{% load crispy_forms_tags %}
+
+<div style="height:100%; margin: 0 !important;" class="col-lg-12 col-xl-4 video_advertising_add_payment c-70 mt-2">
+    <h3 class="f-24 pt-2">Start a New Ad Here:</h3>
+
+
+    <form name="advertisement-form" method="post" enctype="multipart/form-data"
+        onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy'); return false; }">
+        {% csrf_token %} {% crispy form %}
+    </form>
+
+    {% if paypal_form %} {{ paypal_form.render }} {% endif %}
+
+    <form method="post" action="http://localhost:8000/paypal/">
+        <input type="hidden" name="SomePayPalVar" value="SomeValue1" />
+        <input type="hidden" name="SomeOtherPPVar" value="SomeValue2" />
+
+        <!-- code for other variables to be tested ... -->
+
+        {% comment %} <input type="submit" /> {% endcomment %}
+    </form>
+
+</div>
+</div>
+</div>
+
+{% block script %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- <script>
+  $("label").sixth().html('Validity (in months)');
+
+</script> -->
+
+<script>
+    function scroll() {
+        var elmnt = document.getElementById("");
+        elmnt.scrollIntoView();
+    }
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#advertisement-form").validate();
+
+        $("#id_cost").attr('readonly', true);
+        const price_per_month = parseInt($("#price").text());
+
+        $("#id_validity").change(function () {
+            const validity = parseInt($(this).val());
+            const cost = validity * price_per_month;
+            $("#id_cost").val(cost);
+        });
+
+        $('#id_is_global').click(function () {
+            console.log('working!');
+            if ($(this).prop('checked')) {
+                $("#div_id_locations").fadeOut();
+            } else {
+                $("#div_id_locations").fadeIn();
+            }
+        })
+    });
+</script>
+
+{{ form.media }} {% endblock script %}

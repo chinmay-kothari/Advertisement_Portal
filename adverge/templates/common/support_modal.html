@@ -1,0 +1,29 @@
+<section id="modal">
+    <!-- Modal -->
+    <div class="modal fade" id="support" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered max-w support-us-modal" role="document">
+            <div class="modal-content support-modal-content">
+                <div class="modal-body p-3 ">
+                    <form action={% url 'advertisements:support' %} method="POST">
+                        {% csrf_token %}
+                        <label for="" class="f-14 c-70">Your Email ID for Contact</label>
+                        <input type="text" class="form-control col-md-8" name="email" id="email">
+
+                        <label for="" class="f-14 c-70 pt-3">Your Query</label>
+                        <textarea name="query" id="query" class="form-control" cols="30" rows="4"></textarea>
+                        <div class="container-fluid p-0 pt-3 text-right">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn_submit">
+                                        SUBMIT
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

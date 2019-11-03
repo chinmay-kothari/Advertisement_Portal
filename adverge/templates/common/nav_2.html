@@ -1,0 +1,70 @@
+<section id="header_login">
+    <div class="container-fluid ">
+        <div class="navbar-2">
+            <div class="row  " style="width:100% !important; margin:0px;">
+                <div class="col-md-4 " style="padding:0px !important">
+                    <a href="{% url 'home' %}">
+                        <h4 class="header_text" style="padding-left:0px !important; position:relative">ADVERGE</h4>
+                    </a>
+                </div>
+                <div class="col-md-8" style="padding:0px !important; position:relative !important;">
+                    <div class="row nav-2-items-right" align="right">
+                        {% if request.user.is_authenticated %}
+
+                        <div class="col-md-1.3 d-flex align-items-center justify-content-end">
+                            <a href="{% url 'users:detail' request.user.username  %}">
+                                <h4 class="nav_links c-70 f-18 f-w-normal"><span class="iconify"
+                                        data-icon="ant-design:user-outline" data-inline="false"></span>My Profile</h4>
+                            </a>
+                        </div>
+
+                        <div style="margin-left:20px" class="col-md-1.3 d-flex align-items-center justify-content-end">
+                            <a href="{% url 'advertisements:myAdvertisements' %}">
+                                <h4 class="nav_links c-70 f-18 f-w-normal"><span class="iconify"
+                                        data-icon="ant-design:read-outline" data-inline="false"></span>My Advertisement
+                                </h4>
+                            </a>
+                        </div>
+
+                        <div style="margin-left:20px" class="col-md-1.6 d-flex align-items-center justify-content-end">
+                            <a href="#" data-toggle="modal" data-target="#support">
+                                <h4 class="nav_links c-70 f-18 f-w-normal"><span class="iconify"
+                                        data-icon="ant-design:aliwangwang-outline" data-inline="false"></span>Support /
+                                    Write to Us</h4>
+                            </a>
+                        </div>
+
+                        <div style="margin-left:20px" class="col-md-1.3 d-flex align-items-center justify-content-end">
+                            <a href="{% url 'account_logout' %}">
+                                <h4 class="nav_links c-70 f-18 f-w-normal"> <span class="iconify"
+                                        data-icon="ant-design:poweroff-outline" data-inline="false"></span>Signout</h4>
+                            </a>
+                        </div>
+
+                        {% else %}
+
+
+                        <div style="margin-left:20px" class="col-md-1.3 d-flex align-items-center justify-content-end">
+                            <a href="{% url 'account_login' %}">
+                                <h4 class="nav_links c-70 f-18 f-w-normal"><span class="iconify"
+                                        data-icon="ant-design:login-outline" data-inline="false"></span>LOGIN TO
+                                    ADVERTISE</h4>
+                            </a>
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="row nav_2_bottom ">
+            <div class="col-md-12 p-0 banner">
+            </div>
+        </div>
+    </div>
+</section>

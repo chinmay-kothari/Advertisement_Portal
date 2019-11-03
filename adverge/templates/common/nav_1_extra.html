@@ -1,0 +1,40 @@
+{% load static %} {% load widget_tweaks %}
+
+<div class="row">
+    <div class="col-lg-7 col-sm-6 col-md-7">
+
+        <div class="form-group searchBar">
+            <!-- <input type="text" class="form-control col-lg-8 col-md-8 col-sm-8 pb-2" placeholder="Search here for a Product">  -->
+            {% render_field filters.form.description__icontains class="form-control col-lg-8 col-md-8 col-sm-8 pb-2" placeholder="Search here for a Product" %}
+            <span class="fa fa-search form-control-feedback"></span>
+        </div>
+
+        <div class="dropdown cursor">
+            <div class="tags-chins" id="tagsChins" data-toggle="dropdown">
+                <span class="mx-1" onclick="dropdownShow()">Add Tags <i class="fas fa-plus-circle"></i> </span>
+            </div>
+            <ul class="dropdown-menu px-2">
+                <!-- <div class="form-group searchBar_2">
+                    <input type="text" class="form-control"> 
+                    <span class="fa fa-search form-control-feedback add-tags-search"></span>
+                </div> -->
+                {% render_field filters.form.tags class="form-control"%}
+                <button type="submit" class="btn btn-success">Go !</button>
+
+                <!-- <div class="add_tags">
+                    <p onclick="tagsChins('Gilette')">Gilette <i class="fas fa-plus-circle"></i></p>
+                    <p onclick="tagsChins('Funny')">Funny <i class="fas fa-plus-circle"></i></p>
+                </div> -->
+            </ul>
+        </div>
+
+    </div>
+    <div class="col-lg-5 col-sm-6 col-md-5 adverge_container p-0">
+        <h5 class="adverge text-right m-justify-center m-pt-50 ">
+            <a href="{% url 'home' %}" class="c-61">ADVERGE</a>
+            <!-- <i class="fa fa-bars f-36 m-pt-7 cursor" aria-hidden="true" onclick="openNav()"></i> -->
+            <img src="{% static 'images/sideBar-icon.PNG' %}" class="img-fluid sidebar-icon onhover" onclick="openNav()"
+                alt="">
+        </h5>
+    </div>
+</div>

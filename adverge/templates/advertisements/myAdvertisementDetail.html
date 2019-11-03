@@ -1,0 +1,137 @@
+{% load static %}
+
+{% if advertisement %}
+<br>
+<br>
+<h3 id="scroller">Monitoring <span style="color:green">{{ advertisement.video.name }}</span></h3>
+
+<img src="{{ advertisement.thumbnail.url }}" alt="thumbnail" style="  
+            display: block;
+            margin: 5% auto;
+            width: 50%;
+          ">
+
+<p>
+    <b>Description</b> <br> {{advertisement.description}}
+</p>
+
+<table class="table">
+    <thead class="video_table_bg">
+        <tr>
+            <th scope="col">Status</th>
+            <th scope="col">AD Description</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Category(Sub Category)</th>
+            <!--th scope="col">Locations</th>
+                                    <th scope="col">Tags</th-->
+            <th scope="col">Validity(Months)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="border">
+
+                {% if advertisement.status == False %}
+                <span style="color:red">InActive</span> {% endif %}
+                {% if advertisement.status == True %}
+                <span style="color:green">Active</span> {% endif %}
+
+
+            </td>
+            <td class="border">{{ advertisement.description }}</td>
+            <td class="border">{{ advertisement.video.duration}}</td>
+            <td class="border">{{ advertisement.category }}({{ advertisement.subcategory }})</td>
+
+            <td class="border">{{ advertisement.validity }}</td>
+
+
+            <!--td>{{ advertisement.created_at }}</td>
+                                    <td>{{ advertisement.video.size|filesizeformat }}</td>
+                                    <td><a href="{{ advertisement.video.url }}" target="_blank">{{ advertisement.video.name }}</a></td>
+                                    <td>{{ advertisement.created_at }}</td>
+                                    <td>{{ advertisement.video.size|filesizeformat }}</td-->
+        </tr>
+
+    </tbody>
+</table>
+
+
+
+<table class="table">
+    <thead class="video_table_bg">
+        <tr>
+            <th scope="col">Locations</th>
+            <th scope="col">Tags</th>
+            <th scope="col">Video Name</th>
+            <th scope="col">Cost(Rupees)</th>
+            <!--th scope="col">Locations</th>
+                                    <th scope="col">Tags</th-->
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="border">
+                {% for location in advertisement.locations.all %}
+                <ul style="padding-left: 0px !important">{{ location }}</ul>
+                {% endfor %}
+            </td>
+
+            <td class="border">
+                {% for tag in advertisement.tags.all %}
+                <ul style="padding-left: 0px !important">{{ tag }}</ul>
+                {% endfor %}
+            </td>
+            <td class="border">{{ advertisement.video.name }}</td>
+            <td class="border">{{ advertisement.cost }}</td>
+
+
+
+            <!--td>{{ advertisement.created_at }}</td>
+                                    <td>{{ advertisement.video.size|filesizeformat }}</td>
+                                    <td><a href="{{ advertisement.video.url }}" target="_blank">{{ advertisement.video.name }}</a></td>
+                                    <td>{{ advertisement.created_at }}</td>
+                                    <td>{{ advertisement.video.size|filesizeformat }}</td-->
+        </tr>
+
+    </tbody>
+</table>
+
+
+
+
+
+<video style="width:100%" class="video_monitor" controls autoplay>
+    <source src="{{ advertisement.video.url }}" type="video/mp4">
+    Your browser does not support HTML5 video.
+</video>
+
+<div style="margin-left:-0.45vw" class="row">
+    <div class="col-md-12 nike_air">
+        <div class="container-fluid">
+            <div class="row p-4">
+                <div class="col-md-12 nike_air_2">
+                    <div class="content py-3">
+                        <ul>
+                            <li>Last date for Renewal : 20 / 05 / 2019</li>
+                            <li>Frequency of engagement / Week : 2589</li>
+                            <li>Average Video engagement : 03 : 43 Mins</li>
+                        </ul>
+                        <ul>
+                            {% with advertisement.stats_set.all|first as stats %}
+                            <li>Searches appeared in : {{stats.searches_appeared_in}}</li>
+                            <li>Engagement with the Tags : {{stats.tags_appeared_in}}</li>
+                            <li>Appeared in Home Page : {{stats.homepage_appeared_in}}</li>
+                            <li>No of Clicks on the Product Page : {{stats.clicks_product_page}}</li>
+
+                            {% endwith %}
+                        </ul>
+                    </div>
+                    <div class="image pt-4">
+                        <img src="{% static 'images/graph.PNG' %}" class="img-fluid w-100" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endif%}

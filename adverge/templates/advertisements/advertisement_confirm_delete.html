@@ -1,0 +1,16 @@
+{% extends 'common/base_nav_2.html' %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Delete Advertisement" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Delete Adverisement" %}</h1><hr/>
+
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <input class="btn btn-danger" type="submit" value="Confirm">
+</form>
+
+
+{% endblock %}

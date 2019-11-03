@@ -1,0 +1,148 @@
+{% load static %} {% load widget_tweaks %}
+
+<section id="mySidenav" class="f-w-normal sideBar_scroll">
+    <div class="sideNavCont">
+        <div style="padding:0px !important">
+            <a href="{% url 'home' %}">
+                <h4 class="header_text onhover" align="center">
+                    <span> ADVERGE</span>
+                </h4>
+                <hr />
+            </a>
+        </div>
+
+        <div style="margin:0px 60px;">
+            {% if request.user.is_authenticated %}
+
+            <div class=" side_transfer">
+
+
+                <h6><a style="color: black; " href="{% url 'users:detail' request.user.username  %}">
+                        <span class="iconify" data-icon="ant-design:user-outline" data-inline="false"></span>My
+                        Profile</a></h6>
+
+                <h6> <a style="color: black; " href="{% url 'advertisements:myAdvertisements' %}"><span class="iconify"
+                            data-icon="ant-design:read-outline" data-inline="false"></span>My Advertisement</a>
+                </h6>
+                <h6><a style="color: black; " href="{% url 'account_logout' %}"> <span class="iconify"
+                            data-icon="ant-design:poweroff-outline" data-inline="false"></span>SignOut</a></h6>
+            </div>
+
+            {% else %}
+
+            <div class="" align="center">
+                <a href="{% url 'account_login' %}">
+                    <h4 class="login-button-drawer onhover"><span class="iconify" data-icon="ant-design:login-outline"
+                            data-inline="false"></span>LOGIN</h4>
+                </a>
+            </div>
+
+            {% endif %}
+
+
+            <hr />
+            <h4 class="f-18 ff-pd l-spacing-2">Filters</h4>
+            <ul class="" style="list-style:none !important; color:black !important;">
+                <li style="margin:10px 0;"><a style="color: black; " href=""><span class="iconify"
+                            data-icon="ant-design:hourglass-fill" data-inline="false"></span>Most Recent</a>
+                </li>
+                <li style="margin:10px 0;"><a style="color: black; " href=""><span class="iconify"
+                            data-icon="ant-design:star-outline" data-inline="false"></span>Most
+                        Popular</a></li>
+                <li style="margin:10px 0;"><a style="color: black; " href=""><span class="iconify"
+                            data-icon="ant-design:table-outline" data-inline="false"></span>Last 1
+                        Month</a></li>
+                <!-- category -->
+                <hr />
+                <div class="col-10" style="padding: 0px !important">
+                    {{ filters.form.category.label_tag }}
+                    {% render_field filters.form.category class="form-control" %}</div>
+                <!-- subcategory -->
+                <hr />
+                <div class="col-10" style="padding: 0px !important">
+                    {{ filters.form.subcategory.label_tag }}
+                    {% render_field filters.form.subcategory class="form-control" %}</div>
+
+
+                <!-- <h4 class="f-18 ff-pd l-spacing-2 pt-3">Select Categories</h4>
+    <ul class="filters">
+        <li class="dropdown_left m-hide">
+            <a href="">
+                <i class="fas fa-caret-left"></i> Lifestyle
+            </a>
+            <ul class="dropdown_content">
+                <li><a href=""> Watches</a></li>
+                <li><a href=""> Shoes</a></li>
+                <li><a href=""> Cars</a></li>
+            </ul>
+        </li>
+        <li class="dropdown_left_1 m-hide">
+            <a href="">
+                <i class="fas fa-caret-left"></i> Utility
+            </a>
+            <ul class="dropdown_content_1">
+                <li><a href=""> Watches</a></li>
+                <li><a href=""> Shoes</a></li>
+                <li><a href=""> Cars</a></li>
+            </ul>
+            <li class="dropdown_left_2 m-hide">
+                <a href="">
+                    <i class="fas fa-caret-left"></i> Entertainment
+                </a>
+                <ul class="dropdown_content_2">
+                    <li><a href=""> Watches</a></li>
+                    <li><a href=""> Shoes</a></li>
+                    <li><a href=""> Cars</a></li>
+                </ul>
+            </li> -->
+
+                <!-- mobile version code below -->
+                <!-- <li class="m-show">
+                <a href="" data-toggle="collapse" data-target="#collapseExample1">
+                    <i class="fas fa-caret-right"></i> Lifestyle
+                </a>
+                <ul class="filters collapse" id="collapseExample1">
+                    <li><a href=""> Watches</a></li>
+                    <li><a href=""> Shoes</a></li>
+                    <li><a href=""> Cars</a></li>
+                </ul>
+            </li>
+            <li class="m-show">
+                <a href="" data-toggle="collapse" data-target="#collapseExample1">
+                    <i class="fas fa-caret-right"></i> Utility
+                </a>
+                <ul class="filters collapse" id="collapseExample1">
+                    <li><a href=""> Most Popular</a></li>
+                    <li><a href=""> Most Recent</a></li>
+                    <li><a href=""> last 1 Month</a></li>
+                </ul>
+            </li>
+            <li class="m-show">
+                <a href="" data-toggle="collapse" data-target="#collapseExample2">
+                    <i class="fas fa-caret-right"></i> Entertainment
+                </a>
+                <ul class="filters collapse" id="collapseExample2">
+                    <li><a href=""> Most Popular</a></li>
+                    <li><a href=""> Most Recent</a></li>
+                    <li><a href=""> last 1 Month</a></li>
+                </ul>
+            </li>
+    </ul> -->
+                <hr />
+                <p style="margin-top:20px;" class="f-14 ff-pd f-w-normal m-0 l-spacing-2">Search and Set
+                    Location</p>
+                <div style="width:100%!important; padding:0 !important;  height:50px !important;"
+                    class="form-group sideBar_searchBar ">
+                    {% render_field filters.form.locations class="form-control pb-2 col-md-10"%}
+                    <i class="fas fa-globe-europe"></i>
+                </div>
+                <button style=" " type="submit" class="btn btn-success"><span class="iconify"
+                        data-icon="ant-design:search-outline" data-inline="false"></span>Search</button>
+            </ul>
+
+
+
+        </div>
+    </div>
+
+</section>

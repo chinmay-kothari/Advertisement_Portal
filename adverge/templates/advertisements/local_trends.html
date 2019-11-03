@@ -1,0 +1,19 @@
+<div class="container-fluid pt-2 heading-cont">
+    <div class="row trend-row">
+        <div class="col-md-6 trends-heading">
+            <h5 class="c-61 f-18 l-spacing-2 f-w-normal ff-pd trends-heading-cont">LOCAL TRENDS</h5>
+
+        </div>
+        <div class=" col-md-6  location-text">
+            Location: {{local_location}}
+        </div>
+    </div>
+</div>
+<div class="container-fluid scrollbar " id="style-1">
+    <div class="row right_border">
+        {% if minimize %} {% for advertisement in local_qs %} {% include './modal_section.html'%}
+        {% include './tiny_video_component.html'%} {% endfor %} {% else %} {% for advertisement in local_qs %}
+        {% include './modal_section.html'%} {% include './large_video_component.html'%}
+        {% endfor %} {% endif %}
+    </div>
+</div>

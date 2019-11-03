@@ -1,0 +1,4 @@
+{% if minimize %} {% for advertisement in filters.qs %} {% include './modal_section.html'%}
+{% include './tiny_video_component.html'%} {% endfor %} {% else %} {% for advertisement in filters.qs %}
+{% include './modal_section.html'%} {% include './large_video_component.html'%}
+{% endfor %} {% endif %}

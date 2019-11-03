@@ -1,0 +1,180 @@
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<section id="modal_section">
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg-{{advertisement.id}} madal-fixes" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true" align="center">
+        <div class="modal-dialog modal-lg max-w_1400 modal-cont" align="left">
+            <div class="modal-content">
+
+                <div class="row" style="max-height:100%; overflow:hidden;">
+                    <div class="col-md-9 right_border" style="height:calc(100vh - 70px);">
+                        <!-- <iframe width="956" height="538"
+                                    src="https://www.youtube.com/embed/bhVH0C-6f8Q?list=RDbhVH0C-6f8Q" frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe> -->
+                        <h5 class="l-spacing-2 c-70 f-18 ff-pd f-w-normal pb-3" id='description'>
+                            Description: {{ advertisement.description }}
+                        </h5>
+
+                        <div>
+                            <video id="video_{{advertisement.id}}" style="height:calc(100vh - 300px); width:100%; margin:auto; max-height:500px;"
+                                class="video_monitor" controls>
+                                <source src="{{ advertisement.video.url }}" type="video/mp4">
+                                Your browser does not support HTML5 video.
+                            </video>
+                        </div>
+                        <div class="container-fluid p-0 video_des pt-3">
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+
+                                    <p id='linkToProduct'>
+                                        <a href={% url 'advertisements:productPage' advertisement.id %} target='_blank'
+                                            class='btn btn-success'>
+                                            Go to Product Page
+                                        </a>
+                                    </p>
+                                    <p id='companyname'>COMPANY NAME:{{ advertisement.user }}</p>
+                                    <p id='category'>Category(Sub Category): {{ advertisement.category }}
+                                        ({{ advertisement.subcategory }})</p>
+
+                                    <div class="tags_container">
+                                        TAGS : {% for tag in advertisement.tags.all %} <span
+                                            style="margin: 0.5%">{{ tag }}</span> {% endfor %}
+                                    </div>
+                                </div>
+
+                                {% comment %} Share Section {% endcomment %}
+                                {% include 'advertisements/share_section.html'%}
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3 p-0" style="height:calc(100vh - 70px);">
+                    <div class="container-fluid similar_videos_container">
+                        <div class="row similar-videos-heading">
+                            <div class="col-md-12">
+                                <h5>SIMILAR VIDEOS</h5>
+                            </div>
+                        </div>
+                        <div class="row scrollbar_2 similar-videos-content" id="style-1">
+                            <div class="col-md-12">
+                                {% for advertisement in object_list %}
+                                <div class="box my-2 play_icon_hover suggestions{{advertisement.id}}"
+                                    data-toggle="modal" data-src="{{advertisement.video.url}}">
+                                    <a href="#" class="video-btn">
+                                        <img src="/media/{{advertisement.thumbnail}}" class="img-fluid w-100" alt="">
+                                    </a>
+                                    <div class="overlay_play_button"><img src="{% static 'images/play.png' %}"
+                                            class="img-fluid" alt="">
+                                    </div>
+                                </div>
+
+                                <script>
+                                    $('.suggestions{{advertisement.id}}').on('click', function () {
+                                        $('#description').html(' Description : {{ advertisement.description }}');
+
+                                        $('#companyname').html('Company Name : {{ advertisement.user }}');
+                                        $('#linkToProduct').html('Link to the Video : {{ advertisement.video.url }}');
+                                        $('.tags_container').html(
+                                            'Tags : {% for tag in advertisement.tags.all %} <span> {{ tag }} </span> {% endfor %}');
+                                        $('.video_monitor').attr('src', '{{ advertisement.video.url }}');
+                                    })
+                                </script>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" id="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <!-- 16:9 aspect ratio -->
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item"
+                            src="https://www.youtube.com/embed/bhVH0C-6f8Q?list=RDbhVH0C-6f8Q" id="video"
+                            allowscriptaccess="always" allow="autoplay"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <script>
+        var video = document.getElementById('video_{{advertisement.id}}');
+        console.log("{{advertisement.id}}");
+        var timeStarted = -1;
+        var timePlayed = 0;
+        var duration = 0;
+        // If video metadata is laoded get duration
+        if(video.readyState > 0)
+        getDuration.call(video);
+        //If metadata not loaded, use event to get it
+        else
+        {
+        video.addEventListener('loadedmetadata', getDuration);
+        }
+        // remember time user started the video
+        function videoStartedPlaying() {
+        console.log("Started!");
+        console.log("create-backend");
+
+        timeStarted = new Date().getTime()/1000;
+        }
+        function videoStoppedPlaying(event) {
+        // Start time less then zero means stop event was fired vidout start event
+
+        if(timeStarted>0) {
+            var playedFor = new Date().getTime()/1000 - timeStarted;
+            timeStarted = -1;
+            // add the new ammount of seconds played
+            timePlayed+=playedFor;
+        }
+        
+        // Call & Update time
+        console.log("update-backend");
+
+        // Count as complete only if end of video was reached
+            console.log(timePlayed);
+            console.log(event.type);
+
+
+            if(Math.round(timePlayed)>= duration && event.type=="ended") {
+                console.log(timePlayed);
+                console.log("Ended!");
+
+            }
+        }
+
+        function getDuration() {
+        duration = video.duration;
+        if(duration){
+
+        }
+        console.log("Duration: ", duration);
+        }
+
+        video.addEventListener("play", videoStartedPlaying);
+        // video.addEventListener("playing", videoStartedPlaying);
+
+        // video.addEventListener("ended", videoStoppedPlaying);
+        video.addEventListener("pause", videoStoppedPlaying);
+      </script>
+
+
+</section>

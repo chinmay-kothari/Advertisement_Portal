@@ -1,0 +1,60 @@
+<h3 class="f-24 pt-5">Your Active Ads :</h3>
+
+
+
+
+<table class="table">
+    <thead class="video_table_bg">
+        <tr>
+            <th scope="col">Status</th>
+            <th scope="col">AD Description</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Category(Sub Category)</th>
+            <!--th scope="col">Locations</th>
+                    <th scope="col">Tags</th-->
+            <th scope="col">Validity(Months)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for advertisement in advertisements %}
+        <tr>
+            <td class="border">
+
+                {% if advertisement.status == False %}
+                <span style="color:red">InActive</span> {% endif %}
+                {% if advertisement.status == True %}
+                <span style="color:green">Active</span> {% endif %}
+
+
+            </td>
+            <td class="border">{{ advertisement.description }}</td>
+            <td class="border">{{ advertisement.video.duration}}</td>
+            <td class="border">
+                {{ advertisement.category }}({{ advertisement.subcategory }})</td>
+
+            <td class="border">{{ advertisement.validity }}</td>
+            <td style="margin:0 ;padding: 0px !important;  width:100px;">
+                <div style="margin:0 ; padding:0px!important; width:90px;"><a onclick="scroll()"
+                        style="padding: 0 !important; "
+                        href="{% url 'advertisements:myAdvertisementUpdate' advertisement.id %}"><span class="iconify"
+                            data-icon="ant-design:monitor-outline" data-inline="false"></span>Monitor</a></div>
+            </td>
+
+            <td><a onclick="scroll()" style="background: red !important; color:white!important;"
+                    href="{% url 'advertisements:myAdvertisementDelete' advertisement.id %}"><span class="iconify"
+                        data-icon="ant-design:delete-outline" data-inline="false"></span></a>
+            </td>
+
+            <!--td>{{ advertisement.created_at }}</td>
+                    <td>{{ advertisement.video.size|filesizeformat }}</td>
+                    <td><a href="{{ advertisement.video.url }}" target="_blank">{{ advertisement.video.name }}</a></td>
+                    <td>{{ advertisement.created_at }}</td>
+                    <td>{{ advertisement.video.size|filesizeformat }}</td-->
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No data.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
